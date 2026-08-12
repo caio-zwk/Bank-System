@@ -1,8 +1,7 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Main {
-	public static void main(String[] args) throws InterruptedException {
+public class Main {	public static void main(String[] args) throws InterruptedException {
 		Scanner leitor = new Scanner(System.in);
 		HashMap<String, ContaBanco> bancoDeDados = new HashMap<>();
 
@@ -22,7 +21,8 @@ public class Main {
 			ContaBanco contaEncontrada = bancoDeDados.get(nomeDigitado.toLowerCase());
 
 			System.out.print("Usuário encontrado. \nDigite sua senha: ");
-			int senhaDigitada = leitor.nextInt();
+			String senhaDigitadaTXT = leitor.nextLine();
+			int senhaDigitada = Integer.parseInt(senhaDigitadaTXT);
 
 			if (senhaDigitada == contaEncontrada.senha) {
 			    Thread.sleep(1000);
@@ -34,8 +34,40 @@ public class Main {
 				Thread.sleep(1000);
 				System.out.println("\n--- Entrando na conta...");
 				Thread.sleep(2000);
+
 				System.out.println("Bem-vindo de volta " + contaEncontrada.nome + ".");
 				System.out.println("Saldo atual: " + contaEncontrada.saldo);
+				//Opções para o usuário
+				System.out.println("Oque deseja fazer? (digite o número da opção)");
+				System.out.println("1 - Depositar");
+				System.out.println("2 - Sacar");
+				System.out.println("3 - Sair");
+				
+				String opcaoTXT = leitor.nextLine();
+				int opcao = Integer.parseInt(opcaoTXT);
+
+				if (opcao == 1) {
+					System.out.print("Insira o valor a ser depositado: ");
+					String valorDepositadoTXT = leitor.nextLine();
+					double valorDepositado = Double.parseDouble(valorDepositadoTXT);
+					contaEncontrada.saldo += valorDepositado;
+					System.out.println("Depósito realizado com sucesso.\nValor depositado: " + valorDepositado + "\nSaldo atual: " + contaEncontrada.saldo);
+				} else if (opcao == 2) {
+					System.out.print("Insira o valor a ser sacado: ");
+					String valorSacadoTXT = leitor.nextLine();
+					double valorSacado = Double.parseDouble(valorSacadoTXT);
+					if (valorSacado <= contaEncontrada.saldo) {
+						contaEncontrada.saldo -= valorSacado;
+						System.out.println("Saque realizado com sucesso.\nValor sacado: " + valorSacado + "\nSaldo atual: " + contaEncontrada.saldo);
+					} else {
+						System.out.println("Saldo insuficiente para realizar o saque.");
+					}
+				} else if (opcao == 3 ) {
+					System.out.println("Saindo...");
+				} else {
+					System.out.println("Opção inválida. Saindo...");
+				}
+
 			} else {
 				System.out.println("ERRO 002: Senha incorreta.");
 			}
