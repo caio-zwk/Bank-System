@@ -63,7 +63,7 @@ public class Main {
     } 
 
     public static void pagInicial(ContaBanco contaEncontrada, Scanner leitor, HashMap<String, ContaBanco> bancoDeDados) {
-        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"));
         while (true) {
             System.out.println("\n=================================");
             System.out.println("Bem-vindo de volta, " + contaEncontrada.getNome() + ".");
